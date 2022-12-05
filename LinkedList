@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node* link;
+}Node;
+
+Node* head;
+
+void insert(int x){
+    Node* point = (Node*) malloc(sizeof(Node));
+    point -> data = x;
+    point -> link = NULL;
+    if(head!=NULL)
+    {
+        point -> link = head;
+    }
+    head = point;
+}
+
+void print(){
+    int a,i=1;
+
+    Node* print = head;
+    do{
+        a = print->data;
+        printf("Node %d is:\n",i);
+        printf("%d\n",a);
+        printf("%d\n",print->link);
+        print = print->link;
+        i++;
+    }
+    while(print->link != NULL);
+    a = print->data;
+        printf("Node %d is:\n",i);
+        printf("%d\n",a);
+        printf("%d\n",print->link);
+        print = print->link;
+        i++;
+}
+
+int main()
+{
+    int choice;
+    head = NULL;
+    int num,x,pos;
+
+    while(1)
+    {
+    printf("1.Create 2.Insert 3.Display 4.Exit\n");
+    printf("Enter your choice:\n");
+    scanf("%d",&choice);
+
+    switch(choice)
+    {
+    case 1:
+    printf("How many numbers to enter in list:");
+    scanf("%d",&num);
+    printf("Enter numbers:\n");
+    for(int i=0;i<num;i++){
+        scanf("%d",&x);
+        insert(x);
+        }
+    break;
+
+    case 2:
+    printf("Enter the node at beginning:");
+    num=1;
+    for(int i=0;i<num;i++){
+        scanf("%d",&x);
+        insert(x);
+        }
+    break;
+
+    case 3:
+    print();
+    break;
+
+    case 4:
+    exit(0);
+    }
+    }
+
+    return 0;
+}
