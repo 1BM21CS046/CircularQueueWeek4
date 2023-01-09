@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+
+};
+
+//insert at beg
+void push(struct Node **head_ref,int new_data)
+{
+    struct Node *new_node=(struct Node *)malloc(sizeof(struct Node));
+    new_node->data=new_data;
+    new_node->next=(*head_ref);
+    (*head_ref)=new_node;
+}
+
+void Enqueue(struct Node **head_ref,int new_data)
+{
+    struct Node *last;
+    struct Node *new_node=(struct Node *)malloc(sizeof(struct Node));
+    new_node->data=new_data;
+    new_node->next=NULL;
+    if(*head_ref==NULL)
+    {
+        *head_ref=new_node;
+    }
+    else
+    {
+        last=*head_ref;
+        while(last->next!=NULL)
+            last=last->next;
+        last->next=new_node;
+    }
+}
+
+//delete at beg
+void popOrDequeue(struct Node **head_ref)
+{
+    struct Node *ptr;
+    if(*head_ref==NULL)
+    {
+        printf("The list is empty");
+    }
+    else
+    {
+        ptr=*head_ref;
+        *head_ref=ptr->next;
+        printf("\n %d has been removed ...",ptr->data);
+        free(ptr);
+    }
+}
+
+void printlist(struct Node *head)
+{
+    struct Node *ptr;
+    ptr=head;
+    if(ptr==NULL)
+    {
+        printf("The list is empty");
+    }
+    else
+    {
+        printf("\nThe Created list is:\n");
+        while(ptr!=NULL)
+        {
+            printf("%d ",ptr->data);
+            ptr=ptr->next;
+        }
+    }
+}
+
+int main()
+{
+    struct Node *head1=NULL,*headq=NULL;
+    while(1)
+    {
+        int op,x,p,size,v;
+        printf("\nMenu\n1.Push into Stack\n2.Pop from stack\n");
+        printf("3.Display stack\n4.Enqueue\n5.Dequeue\n6.Display Queue\n7.Exit\n");
+        scanf("%d",&op);
+        switch(op)
+        {
+        case 1: printf("\nEnter the value\n");
+                scanf("%d",&x);
+                size++;
+                push(&head1,x);
+                break;
+        case 2: size--;
+                popOrDequeue(&head1);
+                break;
+        case 3: printlist(head1);
+                break;
+        case 4: printf("\nEnter the value\n");
+                scanf("%d",&x);
+                Enqueue(&headq,x);
+                break;
+        case 5: popOrDequeue(&headq);
+                break;
+        case 6: printlist(headq);
+                break;
+        case 7: exit(0);
+        default: printf("\nWrong Choice!!Try Again");
+        }
+    }
+    return 0;
+}
